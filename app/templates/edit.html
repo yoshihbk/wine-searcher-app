@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ワイン情報の編集</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <h1>ワイン情報の編集</h1>
+  <form action="/edit/{{ wine.id }}" method="POST" class="edit-form">
+
+    <div class="form-group">
+      <label>銘柄:</label>
+      <input type="text" name="name" value="{{ wine.name }}" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>産地 (国):</label>
+        <input type="text" name="country" value="{{ wine.country }}">
+      </div>
+      <div class="form-group">
+        <label>地方 (Region):</label>
+        <input type="text" name="region" value="{{ wine.region or '' }}">
+      </div>
+      <div class="form-group">
+        <label>地区 (District):</label>
+        <input type="text" name="district" value="{{ wine.district or '' }}">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>年代 (Vintage):</label>
+        <input type="number" name="vintage" value="{{ wine.vintage or '' }}">
+      </div>
+      <div class="form-group">
+        <label>カテゴリ(color):</label>
+        <select name="color" required>
+          <option value="RED" {% if wine.color=='RED' %}selected{% endif %}>RED</option>
+          <option value="WHITE" {% if wine.color=='WHITE' %}selected{% endif %}>WHITE</option>
+          <option value="BUBBLE" {% if wine.color=='BUBBLE' %}selected{% endif %}>BUBBLE</option>
+          <option value="ROSE" {% if wine.color=='ROSE' %}selected{% endif %}>ROSE</option>
+          <option value="OTHER" {% if wine.color=='OTHER' %}selected{% endif %}>OTHER</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>ブドウ品種:</label>
+      <input type="text" name="grape_variety" value="{{ wine.grape_variety or '' }}">
+    </div>
+
+    <div class="form-group">
+      <label>味わい:</label>
+      <textarea name="description" rows="2">{{ wine.description or '' }}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>おすすめ料理:</label>
+      <textarea name="pairing" rows="2">{{ wine.pairing or '' }}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>エチケット画像URL:</label>
+      <input type="text" name="label_image_url" value="{{ wine.label_image_url or '' }}">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>在庫数:</label>
+        <input type="number" name="quantity" value="{{ wine.quantity }}" required>
+      </div>
+      <div class="form-group">
+        <label>仕入れ値:</label>
+        <input type="number" name="cost_price" value="{{ wine.cost_price }}" required>
+      </div>
+      <div class="form-group">
+        <label>売値:</label>
+        <input type="number" name="selling_price" value="{{ wine.selling_price }}" required>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-save">更新して保存</button>
+      <a href="/wines" class="btn-cancel">キャンセル</a>
+    </div>
+  </form>
+</body>
+
+</html>

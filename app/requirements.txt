@@ -1,0 +1,18 @@
+# Wine Inventory App - 依存ライブラリ（外部パーツ）管理リスト
+# このファイルは、アプリを動かすために必要な Python パッケージの設計図です。
+# Docker ビルド時に自動で読み込まれ、コンテナ内にインストールされます。
+# 1. Webアプリケーションフレームワーク
+# 軽量なWebサーバーを立ち上げ、ALBからのヘルスチェックやAPIリクエストを受け付けます。
+flask
+
+# 2. MySQL データベース接続ドライバ
+# Python のコードから、AWS 上の RDS (MySQL) へSQL文を送り、データを操作するために必須です。
+PyMySQL
+
+# 3. 暗号化・セキュリティ認証ライブラリ
+# 最新の MySQL (RDS) が使用する安全なパスワード認証（caching_sha2_password など）に
+# 対応するために内部的に要求されるライブラリです。
+cryptography
+
+mysql-connector-python
+

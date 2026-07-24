@@ -1,0 +1,56 @@
+services:
+  # データベースサービスの設定
+  db:
+    image: mysql:8.0 # 使用するMySQLのイメージバージョン
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3307:3306" # MySQLのデフォルトポートをホストとコンテナで同じにする
+    environment:
+      # .envファイルから値を読み込みコンテナ内の環境変数として設定
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+     # データ永続化のためのボリュームマウント
+      - mysql_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+ 
+      # 初期化SQLファイルをコンテナにコピー
+
+    healthcheck:
+      # データベースが単に起動しただけでなく「クエリを受け付けられる状態」か確認
+      # アプリが起動に失敗するのを防ぐための重要な仕組み
+      test: ["CMD", "sh", "-c", "MYSQL_PWD=${MYSQL_ROOT_PASSWORD} mysqladmin ping -h localhost -u root"]
+      interval: 5s # 5秒ごとにチェック
+      timeout: 5s  # 5秒反応がなければ失敗とみなす
+      retries: 5   # 5回連続失敗したら「異常」と判定
+
+  # Webアプリケーションサービスの設定
+  web:
+    build:
+      context:  ./app
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
+    ports:
+      # 「ホスト(PC)のポート:コンテナのポート」の転送設定
+      # ブラウザからは http://localhost:5000 でアクセス可能
+      - "5000:5000"
+    environment:
+      # デバッグ
+      FLASK_DEBUG: "1"
+      # アプリがデータベースを見つけるための接続情報を注入
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      db:
+        # dbサービスが「健康(healthy)」になるまでwebは起動を待機する
+        # これにより「DB接続エラー」を未然に防ぐ
+        condition: service_healthy
+volumes:
+  mysql_data:

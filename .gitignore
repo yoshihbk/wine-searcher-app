@@ -1,0 +1,42 @@
+# Terraform が生成するローカル状態ファイル
+# これらのファイルは環境ごとに異なるため、Git 管理から除外します。
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.backup
+
+# Terraform のロックファイル（環境依存なので Git 管理不要）
+.terraform.lock.hcl
+
+# Terraform の作業ディレクトリ（init で生成される）
+.terraform/
+
+# Python のキャッシュファイル
+__pycache__/
+*.pyc
+
+# 仮想環境（もし作る場合）
+venv/
+.env
+
+# VSCode の個人設定
+.vscode/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# その他エディタ
+*.swp
+*.swo
+terraform/terraform.tfvars
+
+# Docker 関連
+.env
+mysql_data/
+
+# OS の隠しファイル
+.DS_Store
+backups/
+
+terraform/.terraform.tfstate.lock.info

@@ -1,0 +1,181 @@
+/* --- ページ全体の基本 --- */
+body {
+  font-family: sans-serif;
+  background-color: #fdfaf6;
+  color: #4a3737;
+}
+
+h1 {
+  color: #8b0000;
+  text-align: center;
+}
+
+/* --- 検索ボックス --- */
+.search-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* --- テーブルの見た目（あなた独自の構成を維持） --- */
+table {
+  width: 90%;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th {
+  background-color: #8b0000;
+  color: white;
+  padding: 15px;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+/* --- 「操作」列の編集ボタンと削除ボタンの調整 --- */
+/* 編集ボタン: 青色に変更し、フォントサイズを揃える */
+td a[href*="edit_page"] {
+  margin-right: 10px;
+  color: #007bff;
+  /* 青色に変更 */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  /* 必要に応じてサイズ調整 */
+}
+
+td form {
+  display: inline;
+}
+
+td button[type="submit"] {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  /* 編集ボタンと同じサイズに統一 */
+  padding: 0;
+  /* 余白をリセットして位置を揃える */
+}
+
+/* --- 編集フォーム用レイアウト --- */
+.edit-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+input,
+select,
+textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background-color: #8b0000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-cancel {
+  margin-left: 15px;
+  color: #666;
+  text-decoration: none;
+}
+
+/* --- ワイン詳細ページ用レイアウト（追記分） --- */
+.detail-container {
+  max-width: 800px;
+  margin: 40px auto;
+  /* ページを中央に配置 */
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* 浮遊感のあるカードデザイン */
+  border-top: 8px solid #8b0000;
+  /* ワインレッドのアクセント */
+}
+
+.wine-title {
+  color: #8b0000;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.info-section {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #555;
+  display: block;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.info-value {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.btn-back {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 25px;
+  background: #8b0000;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.btn-back:hover {
+  background: #a50000;
+}
+
+/* --- 追加：詳細ページ用画像スタイル --- */
+.wine-image-container img {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}

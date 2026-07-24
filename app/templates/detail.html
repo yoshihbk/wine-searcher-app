@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{ wine.name }} - 詳細</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img
+      src="{{ url_for('static', filename=(wine.label_image_url if wine.label_image_url and wine.label_image_url.startswith('images/') else 'images/' + (wine.label_image_url or 'default.jpg'))) }}"
+      alt="{{ wine.name }}" style="max-width: 200px; border-radius: 8px;">
+  </div>
+    <h1 class="wine-title">{{ wine.name }}</h1>
+
+    <div class="info-section">
+      <span class="info-label">産地・年代</span>
+      <p class="info-value">{{ wine.country }} | {{ wine.region or '-' }} | {{ wine.vintage or '-' }}年</p>
+    </div>
+
+    <div class="info-section">
+      <span class="info-label">味わいと特徴</span>
+      <p class="info-value">{{ wine.description or '情報が登録されていません' }}</p>
+    </div>
+
+    <div class="info-section">
+      <span class="info-label">ブドウ品種</span>
+      <p class="info-value">{{ wine.grape_variety or '不明' }}</p>
+    </div>
+
+    <div class="info-section">
+      <span class="info-label">おすすめの料理</span>
+      <p class="info-value">{{ wine.pairing or '情報が登録されていません' }}</p>
+    </div>
+
+    <div class="info-section">
+      <span class="info-label">在庫情報</span>
+      <p class="info-value">在庫: {{ wine.quantity }} / 仕入れ: ¥{{ "{:,}".format(wine.cost_price) }} / 売値: ¥{{
+        "{:,}".format(wine.selling_price) }}</p>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="/wines" class="btn-back">一覧へ戻る</a>
+    </div>
+  </div>
+
+</body>
+
+</html>

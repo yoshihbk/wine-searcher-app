@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to Wine Cellar</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* ワインレッドのグラデーション背景 */
+      background: linear-gradient(rgba(60, 0, 0, 0.7), rgba(120, 0, 0, 0.7)),
+        url('https://images.unsplash.com/photo-1506377330870-8b0675661d98?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      color: white;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 50px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      /* すりガラス効果 */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #eee;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      background: #b71c1c;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: 0.3s;
+      border: 2px solid white;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: white;
+      color: #b71c1c;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Wine Inventory System</h1>
+    <p>在庫管理をもっとスマートに、もっと楽しく。</p>
+    <p class="date-text">本日: {{ today }}</p>
+    <p>Welcome to the Wine Inventory System!</p>
+    <a href="/wines" class="btn">ワインリストへ入る</a>
+  </div>
+
+</body>
+
+</html>

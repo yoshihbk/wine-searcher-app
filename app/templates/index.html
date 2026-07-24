@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>ワイン在庫管理システム</title>
+</head>
+
+<body>
+  <h1>🍷 ワイン在庫管理システム</h1>
+
+  <div class="search-box">
+    <form action="/wines" method="GET">
+      <input type="text" name="q" value="{{ search_query or '' }}">
+      <button type="submit">検索</button>
+      <a href="/wines">リセット</a>
+    </form>
+  </div>
+
+  <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; width: 90%; margin: 0 auto;">
+    <h3>ワインを追加</h3>
+    <form action="/add" method="POST">
+      <span style="font-weight: bold; margin-right: 10px;">No. {{ next_no }}</span>
+      <input type="text" name="name" placeholder="銘柄" required>
+      <input type="text" name="country" placeholder="産地" required>
+      <input type="number" name="vintage" placeholder="年代" required>
+
+      <select name="color" required>
+        <option value="">カテゴリを選択</option>
+        <option value="RED">RED</option>
+        <option value="WHITE">WHITE</option>
+        <option value="BUBBLE">BUBBLE</option>
+        <option value="ROSE">ROSE</option>
+        <option value="OTHER">OTHER</option>
+      </select>
+
+      <input type="number" name="quantity" placeholder="在庫数" required>
+      <input type="number" name="cost_price" placeholder="仕入れ値" required>
+      <input type="number" name="selling_price" placeholder="売値" required>
+      <button type="submit">追加</button>
+    </form>
+
+    <form action="/wines" method="GET">
+      <input type="hidden" name="q" value="{{ search_query or '' }}">
+      <select name="cat">
+        <option value="">ALL</option>
+        <option value="RED">RED</option>
+        <option value="WHITE">WHITE</option>
+        <option value="BUBBLE">BUBBLE</option>
+        <option value="ROSE">ROSE</option>
+        <option value="OTHER">OTHER</option>
+      </select>
+      <button type="submit">検索</button>
+    </form>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for color_type, message in messages %}
+  <div style="color: red; font-weight: bold; text-align: center; margin: 10px;">{{ message }}</div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <table>
+    <tr>
+      <th>画像</th>
+      <th>No.</th>
+      <th>銘柄</th>
+      <th>産地</th>
+      <th>年代</th>
+      <th>カテゴリ</th>
+      <th>在庫数</th>
+      <th>仕入れ値</th>
+      <th>売値</th>
+      <th>粗利</th>
+      <th>操作</th>
+    </tr>
+    {% for wine in wines %}
+    <tr id="row-{{ wine.id }}">
+      <td>
+        <img
+          src="{{ url_for('static', filename=(wine.label_image_url if wine.label_image_url and wine.label_image_url.startswith('images/') else 'images/' + (wine.label_image_url or 'default.jpg'))) }}"
+          width="50" style="border-radius: 4px;">
+      </td>
+      <td>{{ loop.index }}</td>
+      <td><a href="/wine/{{ wine.id}}">{{ wine.name }}</a></td>
+      <td>{{ wine.country }}</td>
+      <td>{{ wine.vintage or '-' }}</td>
+      <td>{{ wine.color }}</td>
+      <td>{{ wine.quantity }}</td>
+      <td>{{ "{:,}".format(wine.cost_price) }}</td>
+      <td>{{ "{:,}".format(wine.selling_price) }}</td>
+      <td>¥{{ wine.profit }}</td>
+      <td>
+        <a href="/edit_page/{{ wine.id }}">編集</a>
+        <form action="/delete/{{ wine.id }}" method="POST" onsubmit="return confirm('削除しますか？');"
+          style="display:inline;">
+          <button type="submit" style="color: red;">削除</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+
+</html>
