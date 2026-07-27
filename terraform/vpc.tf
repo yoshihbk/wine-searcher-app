@@ -5,6 +5,6 @@ resource "aws_vpc" "wine_app_vpc" {
   instance_tenancy     = "default"
   tags = merge(
     var.default_tags,
-    { Name = "${var.project}-vpc"}
+    { Name = "${var.project}-vpc" }
   )
 }
