@@ -29,7 +29,7 @@ desktop.ini
 # その他エディタ
 *.swp
 *.swo
-terraform/terraform.tfvars
+
 
 # Docker 関連
 .env
@@ -39,4 +39,6 @@ mysql_data/
 .DS_Store
 backups/
 
-terraform/.terraform.tfstate.lock.info
+*.tfstate.lock.info
+
+
