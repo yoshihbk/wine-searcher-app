@@ -47,7 +47,7 @@ resource "aws_route" "nat" {
   route_table_id = aws_route_table.private_route.id
   # アウトバウンド
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.ngw.id
+  nat_gateway_id         = aws_nat_gateway.ngw.id
 
 }
 # Natルートテーブルの紐づけ1a
